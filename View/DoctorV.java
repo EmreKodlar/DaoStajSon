@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.DoctorController;
 import Dao.DaoDoctor;
 import Model.Doctor;
 
@@ -37,7 +38,7 @@ public class DoctorV extends JFrame {
 	private JTextField bolumT;
 	private JTextField tipT;
 	
-	DaoDoctor dC=new DaoDoctor();
+	DoctorController dC=new DoctorController();
 	Doctor doc= new Doctor();
 	
 	
@@ -142,7 +143,7 @@ public class DoctorV extends JFrame {
 				
 				doc= new Doctor(Integer.parseInt(bolumT.getText()), isimT.getText(), sifreT.getText(), tcT.getText(), tipT.getText()); 
 				
-				dC.addUser(doc);
+				dC.add_User(doc);
 				
 				JOptionPane.showMessageDialog(null, "Eklendi!", "Mesaj", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -167,9 +168,9 @@ public class DoctorV extends JFrame {
 						
 					}
 					else {
-						 doc=dC.getDoctorList().get(tableDoctor.getSelectedRow());  // tablodan nesne alma işlemi...
+						 doc=dC.get_DoctorList().get(tableDoctor.getSelectedRow());  // tablodan nesne alma işlemi...
 						 
-						 dC.deleteDoctor(doc);
+						 dC.delete_Doctor(doc);
 				 
 				 JOptionPane.showMessageDialog(null,doc.getName() + " isimli Kullanıcı Başarıyla Silindi!", "Kullanıcı Silme Paneli", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -194,7 +195,7 @@ public class DoctorV extends JFrame {
 				}
 				else {
 					
-					 doc=dC.getDoctorList().get(tableDoctor.getSelectedRow());  // tablodan nesne alma işlemi...
+					 doc=dC.get_DoctorList().get(tableDoctor.getSelectedRow());  // tablodan nesne alma işlemi...
 					
 					DoctorUptade cdu=new DoctorUptade();
 					
@@ -251,13 +252,13 @@ public void listeYenileDoctor() {
 		
 		modelim.setRowCount(0);
 		
-	for(int i=0; i<dC.getDoctorList().size(); i++) {
+	for(int i=0; i<dC.get_DoctorList().size(); i++) {
 			
-			satirlar[0]=dC.getDoctorList().get(i).getId();
-			satirlar[1]=dC.getDoctorList().get(i).getTc();
-			satirlar[2]=dC.getDoctorList().get(i).getName();
-			satirlar[3]=dC.getDoctorList().get(i).getPassword();
-			satirlar[4]=dC.getDoctorList().get(i).getType();
+			satirlar[0]=dC.get_DoctorList().get(i).getId();
+			satirlar[1]=dC.get_DoctorList().get(i).getTc();
+			satirlar[2]=dC.get_DoctorList().get(i).getName();
+			satirlar[3]=dC.get_DoctorList().get(i).getPassword();
+			satirlar[4]=dC.get_DoctorList().get(i).getType();
 			modelim.addRow(satirlar);
 			}
 				 tableDoctor.setModel(modelim);

@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.HastaController;
 import Dao.DaoDoctor;
 import Dao.DaoHasta;
 import Model.Clinic;
@@ -30,7 +31,7 @@ import java.awt.event.MouseEvent;
 public class HastaV extends JFrame {
 	
 	
-	DaoHasta hC=new DaoHasta();
+	HastaController hC=new HastaController();
 	Hasta hasta= new Hasta();
 
 	private JPanel contentPane;
@@ -143,7 +144,7 @@ public class HastaV extends JFrame {
 				
 				hasta= new Hasta(Integer.parseInt(bolumT.getText()), isimT.getText(), sifreT.getText(), tcT.getText(), tipT.getText()); 
 				
-				hC.addHasta(hasta);
+				hC.add_Hasta(hasta);
 				
 				JOptionPane.showMessageDialog(null, "Eklendi!", "Mesaj", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -173,9 +174,9 @@ public class HastaV extends JFrame {
 						
 					}
 					else {
-						hasta=hC.getHastaList().get(tableHasta.getSelectedRow());  // tablodan nesne alma işlemi...
+						hasta=hC.get_HastaList().get(tableHasta.getSelectedRow());  // tablodan nesne alma işlemi...
 						 
-						 hC.deleteHasta(hasta);
+						 hC.delete_Hasta(hasta);
 				 
 				 JOptionPane.showMessageDialog(null,hasta.getName() + " isimli Kullanıcı Başarıyla Silindi!", "Kullanıcı Silme Paneli", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -213,7 +214,7 @@ public class HastaV extends JFrame {
 		        
 		              hasta= new Hasta(id_Al,0,isim_Al,sifre_Al,tc_Al,tip_Al);
 		      
-					  hC.updateHasta(hasta);
+					  hC.update_Hasta(hasta);
 					
 			
 					
@@ -261,13 +262,13 @@ public void listeYenileHasta() {
 		
 		modelim.setRowCount(0);
 		
-	for(int i=0; i<hC.getHastaList().size(); i++) {
+	for(int i=0; i<hC.get_HastaList().size(); i++) {
 			
-			satirlar[0]=hC.getHastaList().get(i).getId();
-			satirlar[1]=hC.getHastaList().get(i).getTc();
-			satirlar[2]=hC.getHastaList().get(i).getName();
-			satirlar[3]=hC.getHastaList().get(i).getPassword();
-			satirlar[4]=hC.getHastaList().get(i).getType();
+			satirlar[0]=hC.get_HastaList().get(i).getId();
+			satirlar[1]=hC.get_HastaList().get(i).getTc();
+			satirlar[2]=hC.get_HastaList().get(i).getName();
+			satirlar[3]=hC.get_HastaList().get(i).getPassword();
+			satirlar[4]=hC.get_HastaList().get(i).getType();
 			modelim.addRow(satirlar);
 			}
 	tableHasta.setModel(modelim);

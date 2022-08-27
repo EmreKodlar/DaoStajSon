@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controller.DoctorController;
 import Dao.DaoDoctor;
 import Model.Doctor;
 
@@ -28,7 +29,7 @@ public class DoctorUptade extends JFrame {
 	public JTextField typee;
 	
 
-	DaoDoctor dC=new DaoDoctor();
+	DoctorController dC=new DoctorController();
 	Doctor doc= new Doctor();
 	
 	DoctorV docV= new DoctorV();
@@ -130,7 +131,7 @@ public class DoctorUptade extends JFrame {
 	
 					doc=new Doctor(Integer.parseInt(id_getir.getText()),Integer.parseInt(bolumm.getText()),isimm.getText(),sifree.getText(),tcc.getText(),typee.getText());
 	
-					dC.updateDoctor(doc);
+					dC.update_Doctor(doc);
 					
 					JOptionPane.showMessageDialog(null, "Başarıyla Düzenlendi!", "Mesaj", JOptionPane.INFORMATION_MESSAGE);
 					 

@@ -166,7 +166,7 @@ public class ClinicV extends JFrame {
 		
 		listeYenileClinic();
 		
-	}
+	} 
 	
 	
 public void listeYenileClinic() {

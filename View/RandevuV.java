@@ -10,6 +10,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.ClinicController;
+import Controller.DoctorController;
+import Controller.RandevuController;
 import Dao.DaoClinic;
 import Dao.DaoDoctor;
 import Dao.DaoRandevu;
@@ -31,12 +34,12 @@ public class RandevuV extends JFrame {
 
 
 	
-	DaoRandevu rC=new DaoRandevu();
+	RandevuController rC=new RandevuController();
 	Randevu ran= new Randevu();
 	
-	DaoDoctor dC=new DaoDoctor();
+	DoctorController dC=new DoctorController();
 	
-	DaoClinic cC=new DaoClinic();
+	ClinicController cC=new ClinicController();
 	
 	
 	//tablo oluşturma
@@ -98,9 +101,9 @@ public class RandevuV extends JFrame {
 						
 					}
 					else {
-						 ran=rC.randevuListele(6).get(tableRandevu.getSelectedRow());  // tablodan nesne alma işlemi...
+						 ran=rC.randevu_Listele(6).get(tableRandevu.getSelectedRow());  // tablodan nesne alma işlemi... id'si 6 olan hastayı al
 						 
-						 rC.deleteRandevu(ran);
+						 rC.delete_Randevu(ran);
 				 
 				 JOptionPane.showMessageDialog(null, " Randevu Başarıyla Silindi!", "Randevu Silme Paneli", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -128,8 +131,8 @@ if(tableRandevu.getSelectedRow()<0) {
 					// Tabloyu hücre içinden güncelleme
 					  int ii = tableRandevu.getSelectedRow();
 					  int id_Al= Integer.parseInt(tableRandevu.getModel().getValueAt(ii, 0).toString());
-					  int doktor_id=Integer.parseInt(tableRandevu.getModel().getValueAt(ii,1).toString());
-					  int klinik_al=Integer.parseInt(tableRandevu.getModel().getValueAt(ii,2).toString());
+					  String doktor_id=tableRandevu.getModel().getValueAt(ii,1).toString();
+					  String klinik_al=tableRandevu.getModel().getValueAt(ii,2).toString();
 		              String tarih=tableRandevu.getModel().getValueAt(ii,3).toString();
 		          
 		    
@@ -138,7 +141,7 @@ if(tableRandevu.getSelectedRow()<0) {
 		        
 		              ran= new Randevu(id_Al,6,doktor_id,klinik_al,tarih);
 		      
-					  rC.updateRandevu(ran);
+					  rC.update_Randevu(ran);
 					
 			
 					
@@ -155,9 +158,9 @@ if(tableRandevu.getSelectedRow()<0) {
 		doktorlistele.setBounds(416, 104, 240, 22);
 		contentPane.add(doktorlistele);
 		
-		for(int i=0; i<dC.getDoctorList().size() ;i++ ) {
+		for(int i=0; i<dC.get_DoctorList().size() ;i++ ) {
 			
-		doktorlistele.addItem(dC.getDoctorList().get(i).getName());
+		doktorlistele.addItem(dC.get_DoctorList().get(i).getName());
 		 
 			
 		}
@@ -171,9 +174,9 @@ if(tableRandevu.getSelectedRow()<0) {
 		kliniklistele.setBounds(416, 153, 240, 22);
 		contentPane.add(kliniklistele);
 		
-		for(int i=0; i<cC.getClinicList().size() ;i++ ) {
+		for(int i=0; i<cC.get_ClinicList().size() ;i++ ) {
 			
-		kliniklistele.addItem(cC.getClinicList().get(i).getName());
+		kliniklistele.addItem(cC.get_ClinicList().get(i).getName());
 	 
 			}
 		
@@ -188,12 +191,12 @@ if(tableRandevu.getSelectedRow()<0) {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				int clinicID = cC.getClinicList().get(kliniklistele.getSelectedIndex()).getId();
-				int doktorID = dC.getDoctorList().get(doktorlistele.getSelectedIndex()).getId();
+				String clinicID = cC.get_ClinicList().get(kliniklistele.getSelectedIndex()).getName();
+				String doktorID = dC.get_DoctorList().get(doktorlistele.getSelectedIndex()).getName();
 				
 				ran= new Randevu(6,doktorID,clinicID,tarih.getText()); 
 				
-				rC.addRandevu(ran);
+				rC.add_Randevu(ran);
 				
 				JOptionPane.showMessageDialog(null, "Eklendi!", "Mesaj", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -216,16 +219,16 @@ public void listeYenileRandevu() {
 		
 		
 		
-	for(int i=0; i<rC.randevuListele(6).size(); i++) { // 6 sayısı herhangi bir hastanın id'si
+	for(int i=0; i<rC.randevu_Listele(6).size(); i++) { // 6 sayısı herhangi bir hastanın id'si
 			
-		int dr_id=rC.randevuListele(6).get(i).getDoctor_id();
-		int kl_id=rC.randevuListele(6).get(i).getClinic_id();
+		//int dr_id=rC.randevu_Listele(6).get(i).getDoctor_id();
+		//int kl_id=rC.randevu_Listele(6).get(i).getClinic_id();
 		 
 		
-			satirlar[0]=rC.randevuListele(6).get(i).getId();
-			satirlar[1]=dC.getDoctorsName(dr_id);
-			satirlar[2]=cC.getClinicName(kl_id);
-			satirlar[3]=rC.randevuListele(6).get(i).getTarih();
+			satirlar[0]=rC.randevu_Listele(6).get(i).getId();
+			satirlar[1]=rC.randevu_Listele(6).get(i).getDoctor_id();
+			satirlar[2]=rC.randevu_Listele(6).get(i).getClinic_id(); 
+			satirlar[3]=rC.randevu_Listele(6).get(i).getTarih();
 		
 			modelim.addRow(satirlar);
 			}

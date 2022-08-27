@@ -57,8 +57,8 @@ String sorguEkleme = " INSERT INTO randevu (hasta_id,doktor_id,klinik_id,tarih) 
 			preparedStatement=(PreparedStatement) con.prepareStatement(sorguEkleme);
 			 
 			preparedStatement.setInt (1, randevu.getHasta_id());
-			preparedStatement.setInt (2, randevu.getDoctor_id());
-			preparedStatement.setInt   (3, randevu.getClinic_id());
+			preparedStatement.setString (2, randevu.getDoctor_id());
+			preparedStatement.setString   (3, randevu.getClinic_id());
 			preparedStatement.setString(4, randevu.getTarih());
 			 
 			 
@@ -79,8 +79,8 @@ String sorguEkleme = " INSERT INTO randevu (hasta_id,doktor_id,klinik_id,tarih) 
 		try {
 			st=(Statement) con.createStatement();
 			preparedStatement=(PreparedStatement) con.prepareStatement(query);
-			preparedStatement.setInt(1,randevu.getDoctor_id());
-			preparedStatement.setInt(2,randevu.getClinic_id());
+			preparedStatement.setString(1,randevu.getDoctor_id());
+			preparedStatement.setString(2,randevu.getClinic_id());
 			preparedStatement.setString(3,randevu.getTarih());
 			preparedStatement.setInt(4,randevu.getId());
 		 
@@ -104,7 +104,7 @@ String sorguEkleme = " INSERT INTO randevu (hasta_id,doktor_id,klinik_id,tarih) 
 			while(rs.next()) {
 				
 		
-			randevu=new Randevu(rs.getInt("id"),rs.getInt("hasta_id"),rs.getInt("doktor_id"),rs.getInt("klinik_id"),rs.getString("tarih"));
+			randevu=new Randevu(rs.getInt("id"),rs.getInt("hasta_id"),rs.getString("doktor_id"),rs.getString("klinik_id"),rs.getString("tarih"));
 			list.add(randevu); } 
 			
 			 
